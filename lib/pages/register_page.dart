@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 
 import 'login_page.dart';
 
-//https://www.figma.com/file/rkfkKTqtxJcT5CcAXyBdrI/El-taller-del-dulce?type=design&node-id=0%3A1&mode=design&t=q1i97JiqTjVDjT8H-1
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
