@@ -229,16 +229,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   },
                   style: ButtonStyle(
                     foregroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black),
-                    backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                        if (states.contains(MaterialState.disabled)) {
+                    WidgetStateProperty.all<Color>(Colors.black),
+                    backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+                          (Set<WidgetState> states) {
+                        if (states.contains(WidgetState.disabled)) {
                           return Colors.grey;
                         }
                         return const Color(0xFFE91E63);
                       },
                     ),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10), // Establece los bordes cuadrados
                       ),
