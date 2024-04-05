@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -67,31 +66,34 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8BBD0),
+      appBar: AppBar(
+        title:       Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Image.asset(
+              'assets/images/title.png',
+              width: 19,
+              height: 19,
+            ),
+            const SizedBox(width: 10),
+            const Text(
+              "El taller del dulce",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.transparent, // Hace que el fondo del AppBar sea transparente
+        elevation: 0, // Quita la sombra del AppBar
+        centerTitle: false,
+      ),
+
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/title.png',
-                      width: 19,
-                      height: 19,
-                    ),
-                    const SizedBox(width: 10),
-                    const Text(
-                      "El taller del dulce",
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 8.0,
-                ),
                 const Image(
                   image: AssetImage('assets/images/logo.png'),
                   width: 150,
@@ -220,7 +222,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),),
                     keyboardType: TextInputType.visiblePassword),
                 const SizedBox(
-                  height: 8.0,
+                  height: 40.0,
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -244,7 +246,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   child: const SizedBox(
-                    width: 120, // Establece un ancho específico para el botón (en este caso 200)
+                    width: 120, // Establece un ancho específico para el botón
                     child: Text("Registrarme", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
                   ),
                 ),

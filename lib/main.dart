@@ -1,3 +1,4 @@
+import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:el_taller_del_dulce/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mis marcas',
+      title: 'El taller del dulce',
       localizationsDelegates: const[
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFE91E63)),
         useMaterial3: true,
       ),
-      home: const RegisterPage(),
+      home: const NavigationMenu(),
     );
   }
 }
