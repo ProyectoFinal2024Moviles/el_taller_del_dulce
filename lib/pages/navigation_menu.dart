@@ -19,15 +19,15 @@ class NavigationMenu extends StatelessWidget {
               selectedIndex: controller.selectedIndex.value,
               onDestinationSelected: (index) =>
               controller.selectedIndex.value = index,
-              indicatorColor: const Color(0xFFE91E63),
+              indicatorColor: const Color(0xFFF8BBD0),
               destinations: const [
-                NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+                NavigationDestination(icon: Icon(Icons.home, color: Color(0xFFE91E63),), label: 'Home'),
                 NavigationDestination(
-                    icon: Icon(Icons.shopping_cart), label: 'Carrito'),
+                    icon: Icon(Icons.shopping_cart, color: Color(0xFFE91E63)), label: 'Carrito',),
                 NavigationDestination(
-                    icon: Icon(Icons.list_alt), label: 'Noticias'),
+                    icon: Icon(Icons.list_alt, color: Color(0xFFE91E63)), label: 'Noticias'),
                 NavigationDestination(
-                    icon: Icon(Icons.person), label: 'Perfil'),
+                    icon: Icon(Icons.person, color: Color(0xFFE91E63)), label: 'Perfil'),
               ],
             ),
       ),
