@@ -1,7 +1,34 @@
+import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:flutter/material.dart';
 
+class Product {
+  final String nombre;
+  final String imagen;
+
+  Product({required this.nombre, required this.imagen});
+}
+
+final List<Product> _productos = [
+  Product(
+    nombre: "Chocolate",
+    imagen: "assets/images/chocolate_cake.jpg",
+  ),
+  Product(
+    nombre: "Caramelo",
+    imagen: "assets/images/caramelo_cake.jpg",
+  ),
+  Product(
+    nombre: "Red Velvet",
+    imagen: "assets/images/red_velvet_cake.jpg",
+  ),
+  Product(
+    nombre: "Milo",
+    imagen: "assets/images/milo_cake.jpg",
+  ),
+];
+
 class TypesPage extends StatelessWidget {
-  const TypesPage({super.key});
+  const TypesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,29 +56,69 @@ class TypesPage extends StatelessWidget {
         centerTitle: false,
       ),
       backgroundColor: Color(0xFFF8BBD0),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: const Row( //Const
-                  children: [
-                    Icon(Icons.search),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Text('Buscar'),
-                  ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Row(
+                    //Const
+                    children: [
+                      Icon(Icons.search),
+                      SizedBox(
+                        width: 16,
+                      ),
+                      Text('Buscar'),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 10.0,
+                ),
+                itemCount: _productos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    elevation: 5,
+                    child: Column(
+                      children: <Widget>[
+                        Image.asset(
+                          _productos[index].imagen,
+                          width: 180,
+                          height: 180,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            _productos[index].nombre,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
