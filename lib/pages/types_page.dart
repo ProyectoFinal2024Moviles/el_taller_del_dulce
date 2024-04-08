@@ -1,6 +1,8 @@
 import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:flutter/material.dart';
 
+import 'details_page.dart';
+
 class Product {
   final String nombre;
   final String imagen;
@@ -27,8 +29,19 @@ final List<Product> _productos = [
   ),
 ];
 
-class TypesPage extends StatelessWidget {
-  const TypesPage({Key? key}) : super(key: key);
+class TypesPage extends StatefulWidget {
+  const TypesPage({super.key});
+
+@override
+State<TypesPage> createState() => _TypesPageState();
+}
+  class _TypesPageState extends State<TypesPage> {
+  void _addButtonClicked() {
+    setState(() {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const DetailsPage()));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +68,7 @@ class TypesPage extends StatelessWidget {
         // Quita la sombra del AppBar
         centerTitle: false,
       ),
-      backgroundColor: Color(0xFFF8BBD0),
+      backgroundColor: const Color(0xFFF8BBD0),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: SingleChildScrollView(
@@ -98,8 +111,8 @@ class TypesPage extends StatelessWidget {
                       children: <Widget>[
                         Image.asset(
                           _productos[index].imagen,
-                          width: 180,
-                          height: 180,
+                          width: 160,
+                          height: 160,
                           fit: BoxFit.cover,
                           alignment: Alignment.center,
                         ),
