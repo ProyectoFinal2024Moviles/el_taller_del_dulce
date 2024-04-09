@@ -19,7 +19,7 @@ class _DetailsPageState extends State<DetailsPage> {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFE91E63),
+            //color: const Color(0xFFE91E63),
             borderRadius: BorderRadius.circular(30),
           ),
 
@@ -149,7 +149,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   IconButton(
                     icon: Icon(Icons.remove),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE91E63),
+                      //backgroundColor: const Color(0xFFE91E63),
                     ),
                     onPressed: () {
                       setState(() {
@@ -166,7 +166,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   IconButton(
                     icon: const Icon(Icons.add),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE91E63),
+                      //backgroundColor: const Color(0xFFE91E63),
                     ),
                     onPressed: () {
                       setState(() {

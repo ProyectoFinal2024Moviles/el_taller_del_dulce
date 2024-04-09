@@ -1,3 +1,5 @@
+import 'package:el_taller_del_dulce/pages/details_page.dart';
+import 'package:el_taller_del_dulce/pages/info_page.dart';
 import 'package:el_taller_del_dulce/pages/login_page.dart';
 import 'package:el_taller_del_dulce/pages/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SplashPage(),
+      home: const InfoPage(),
     );
   }
 }
