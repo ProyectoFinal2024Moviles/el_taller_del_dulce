@@ -1,10 +1,10 @@
-import 'package:el_taller_del_dulce/pages/details_page.dart';
-import 'package:el_taller_del_dulce/pages/info_page.dart';
-import 'package:el_taller_del_dulce/pages/login_page.dart';
-import 'package:el_taller_del_dulce/pages/splash_page.dart';
+import 'package:el_taller_del_dulce/pages/home_page.dart';
+import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
+import 'package:el_taller_del_dulce/pages/register_page.dart';
+import 'package:el_taller_del_dulce/pages/types_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-// garcia
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,35 +16,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'EL TALLER DEL DULCE',
+      title: 'El taller del dulce',
       localizationsDelegates: const[
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate
       ],
       supportedLocales: const[
         Locale("es", "CO"),
-        Locale("en", "US")
+        Locale("es", "US")
       ],
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFE91E63)),
         useMaterial3: true,
       ),
-      home: const InfoPage(),
+      home: const NavigationMenu(),
     );
   }
 }
