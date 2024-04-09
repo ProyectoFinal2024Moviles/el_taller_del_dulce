@@ -1,3 +1,4 @@
+import 'package:el_taller_del_dulce/pages/home_page.dart';
 import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:el_taller_del_dulce/pages/register_page.dart';
 import 'package:el_taller_del_dulce/pages/types_page.dart';
