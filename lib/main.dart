@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFE91E63)),
         useMaterial3: true,
       ),
-      home: const RegisterPage(),
+      home: const NavigationMenu(),
     );
   }
 }
