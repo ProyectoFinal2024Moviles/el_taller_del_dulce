@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -17,6 +17,9 @@ class _RegisterPageState extends State<RegisterPage> {
   final _fechaNacimiento = TextEditingController();
   String _bornDate = "";
 
+  bool _obscurePassword = true;
+  bool _obscureRepPassword = true;
+
   String _dateConverter(DateTime newDate) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     final String dateFormatted = formatter.format(newDate);
@@ -25,12 +28,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _showSelectedDate() async {
     final DateTime? newDate = await showDatePicker(
-        context: context,
-        locale: const Locale("es", "CO"),
-        initialDate: DateTime(2024, 2),
-        firstDate: DateTime(1900, 1),
-        lastDate: DateTime(2024, 3, 15),
-        helpText: "Fecha de nacimiento");
+      context: context,
+      locale: const Locale("es", "CO"),
+      initialDate: DateTime(2024, 2),
+      firstDate: DateTime(1900, 1),
+      lastDate: DateTime(2024, 3, 15),
+      helpText: "Fecha de nacimiento",
+    );
 
     if (newDate != null) {
       setState(() {
@@ -40,25 +44,12 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  /*void _showMsg(String msg) {
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: Text(msg),
-        action: SnackBarAction(
-            label: 'Aceptar',
-            onPressed: () {
-              _password.text = "";
-              _repPassword.text = "";
-            }),
-      ),
-    );
-  }*/
-
   void _onRegisterButtonClicked() {
     setState(() {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginPage()));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
     });
   }
 
@@ -67,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFF8BBD0),
       appBar: AppBar(
-        title:       Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
@@ -82,11 +73,10 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ],
         ),
-        backgroundColor: Colors.transparent, // Hace que el fondo del AppBar sea transparente
-        elevation: 0, // Quita la sombra del AppBar
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         centerTitle: false,
       ),
-
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
         child: Center(
@@ -96,8 +86,8 @@ class _RegisterPageState extends State<RegisterPage> {
               children: <Widget>[
                 const Image(
                   image: AssetImage('assets/images/logo.png'),
-                  width: 150,
-                  height: 150,
+                  width: 130,
+                  height: 130,
                 ),
                 const SizedBox(
                   height: 8.0,
@@ -120,14 +110,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 8.0,
                 ),
                 TextFormField(
-                    controller: _name,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(),
-                      labelText: 'Ej. Pedro Perez',
-                      contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),),
-                    keyboardType: TextInputType.text),
+                  controller: _name,
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(),
+                    labelText: 'Ej. Pedro Perez',
+                    contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                  ),
+                  keyboardType: TextInputType.text,
+                ),
                 const SizedBox(
                   height: 8.0,
                 ),
@@ -142,14 +134,16 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 8.0,
                 ),
                 TextFormField(
-                    controller: _email,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(),
-                      labelText: 'Ej. pedroperez@gmail.com',
-                      contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),),
-                    keyboardType: TextInputType.emailAddress),
+                  controller: _email,
+                  decoration: const InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(),
+                    labelText: 'Ej. pedroperez@gmail.com',
+                    contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                ),
                 const SizedBox(
                   height: 8.0,
                 ),
@@ -171,7 +165,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(),
                     labelText: 'Ej. 1985-02-25',
-                    contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),),
+                    contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                  ),
                   readOnly: true,
                   onTap: () {
                     _showSelectedDate();
@@ -191,14 +186,25 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 8.0,
                 ),
                 TextFormField(
-                    controller: _password,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(),
-                      labelText: 'Escribe una contraseña',
-                      contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),),
-                    keyboardType: TextInputType.visiblePassword),
+                  controller: _password,
+                  obscureText: _obscurePassword,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: const OutlineInputBorder(),
+                    labelText: 'Escribe una contraseña',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                    ),
+                  ),
+                  keyboardType: TextInputType.visiblePassword,
+                ),
                 const SizedBox(
                   height: 8.0,
                 ),
@@ -213,24 +219,34 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 8.0,
                 ),
                 TextFormField(
-                    controller: _repPassword,
-                    decoration: const InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(),
-                      labelText: 'Repite la contraseña',
-                      contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),),
-                    keyboardType: TextInputType.visiblePassword),
+                  controller: _repPassword,
+                  obscureText: _obscureRepPassword,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: const OutlineInputBorder(),
+                    labelText: 'Repite la contraseña',
+                    contentPadding: const EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscureRepPassword ? Icons.visibility_off : Icons.visibility),
+                      onPressed: () {
+                        setState(() {
+                          _obscureRepPassword = !_obscureRepPassword;
+                        });
+                      },
+                    ),
+                  ),
+                  keyboardType: TextInputType.visiblePassword,
+                ),
                 const SizedBox(
-                  height: 40.0,
+                  height: 20.0,
                 ),
                 ElevatedButton(
                   onPressed: () {
                     _onRegisterButtonClicked();
                   },
                   style: ButtonStyle(
-                    foregroundColor:
-                    WidgetStateProperty.all<Color>(Colors.black),
+                    foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
                     backgroundColor: WidgetStateProperty.resolveWith<Color?>(
                           (Set<WidgetState> states) {
                         if (states.contains(WidgetState.disabled)) {
@@ -241,13 +257,17 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), // Establece los bordes cuadrados
+                        borderRadius: BorderRadius.circular(10),
                       ),
                     ),
                   ),
                   child: const SizedBox(
-                    width: 120, // Establece un ancho específico para el botón
-                    child: Text("Registrarme", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
+                    width: 120,
+                    child: Text(
+                      "Registrarme",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],
@@ -258,3 +278,4 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
+
