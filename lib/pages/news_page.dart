@@ -17,14 +17,14 @@ class _NewsPageState extends State<NewsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Noticias y Promociones',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: ListView.builder(
                 itemCount: 10, // Cambia esto por la cantidad de noticias que tengas
@@ -45,7 +45,7 @@ class NewsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -55,7 +55,7 @@ class NewsCard extends StatelessWidget {
             width: double.infinity,
             fit: BoxFit.cover,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.all(8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
