@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class DetailsPage extends StatefulWidget {
-  const DetailsPage({super.key});
+class CustomizedPage extends StatefulWidget {
+  const CustomizedPage({super.key});
 
   @override
-  State<DetailsPage> createState() => _DetailsPageState();
+  State<CustomizedPage> createState() => _CustomizedPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _CustomizedPageState extends State<CustomizedPage> {
   final String cake = 'assets/images/chocolate-cake.png';
   String description = "Deliciosa torta de chocolate";
   String _selectedSize = '';
@@ -23,7 +23,7 @@ class _DetailsPageState extends State<DetailsPage> {
             borderRadius: BorderRadius.circular(30),
           ),
 
-          child: Radio(
+          child:Radio(
             value: title,
             groupValue: _selectedSize,
             activeColor: Colors.black,
@@ -68,10 +68,8 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ],
         ),
-        backgroundColor: Colors.transparent,
-        // Hace que el fondo del AppBar sea transparente
-        elevation: 0,
-        // Quita la sombra del AppBar
+        backgroundColor: Colors.transparent, // Hace que el fondo del AppBar sea transparente
+        elevation: 0, // Quita la sombra del AppBar
         centerTitle: false,
       ),
       body: Padding(
@@ -86,7 +84,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Column(
+                  child: Column(
                   children: <Widget>[
                     Image(
                       image: AssetImage(cake),
@@ -99,8 +97,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     const Text(
                       "Chocolate",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -116,8 +113,7 @@ class _DetailsPageState extends State<DetailsPage> {
               Text(
                 description,
                 textAlign: TextAlign.left,
-                style: const TextStyle(
-                    fontSize: 15, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 25.0,
