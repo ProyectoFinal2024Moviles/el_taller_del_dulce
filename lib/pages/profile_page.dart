@@ -11,14 +11,21 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Perfil'),
-      ),
+      backgroundColor: const Color(0xFFF8BBD0),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              'Noticias y promociones',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
             Center(
               child: Column(
                 children: [
@@ -52,7 +59,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             ListTile(
               title: Text(
-                  'Correo Electrónico: pedroperez@example.com'), // Cambia esto por el correo del usuario
+                  'Correo Electrónico: pedroperez@gmail.com'), // Cambia esto por el correo del usuario
               trailing: Icon(Icons.edit), // Icono para editar el correo
               onTap: () {
                 // Lógica para editar el correo

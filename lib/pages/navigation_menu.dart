@@ -58,7 +58,7 @@ class _NavigationMenu extends State<NavigationMenu> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home, color: Color(0xFFE91E63)), label: 'Inicio', backgroundColor: Colors.white),
           BottomNavigationBarItem(icon: Icon(Icons.shopping_cart, color: Color(0xFFE91E63)), label: 'Carrito'),
-          BottomNavigationBarItem(icon: Icon(Icons.list_alt, color: Color(0xFFE91E63)), label: 'Noticias'),
+          BottomNavigationBarItem(icon: Icon(Icons.announcement, color: Color(0xFFE91E63)), label: 'Noticias'),
           BottomNavigationBarItem(icon: Icon(Icons.person, color: Color(0xFFE91E63)), label: 'Perfil'),
         ],
         currentIndex: _selectedIndex,
