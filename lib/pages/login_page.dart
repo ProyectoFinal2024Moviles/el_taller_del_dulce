@@ -1,6 +1,7 @@
 import 'package:el_taller_del_dulce/pages/customized_page.dart';
 import 'package:el_taller_del_dulce/pages/details_page.dart';
 import 'package:el_taller_del_dulce/pages/home_page.dart';
+import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:el_taller_del_dulce/pages/register_page.dart';
 import 'package:el_taller_del_dulce/pages/customized_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _password = TextEditingController();
   final _email = TextEditingController();
+  bool _obscurePassword = true;
+
 
   void _onLoginButtonClicked() {
     setState(() {
@@ -70,6 +73,16 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 16.0,
                   ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Correo electrónico",
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   TextFormField(
                     controller: _email,
                     decoration: const InputDecoration(
@@ -84,14 +97,33 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 16.0,
                   ),
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Contraseña",
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   TextFormField(
                     controller: _password,
-                    decoration: const InputDecoration(
+                    obscureText: _obscurePassword,
+                    decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                         labelText: 'Contraseña',
-                        contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                      suffixIcon: IconButton(
+                        icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+                        onPressed: () {
+                          setState(() {
+                            _obscurePassword = !_obscurePassword;
+                          });
+                        },
+                      ),
                     ),
                     keyboardType: TextInputType.visiblePassword,
                   ),
@@ -145,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const HomePage())
+                                builder: (context) => const NavigationMenu())
                         );
                       },
                       child: const Text('Continuar sin iniciar sesión',

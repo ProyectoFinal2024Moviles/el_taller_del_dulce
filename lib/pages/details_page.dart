@@ -9,7 +9,7 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  final String cake = 'assets/images/chocolate-cake.png';
+  final String cake = 'assets/images/chocolate_cake.jpg';
   String description = "Deliciosa torta de chocolate";
   String _selectedSize = '';
   int _quantity = 0;

@@ -1,6 +1,7 @@
 import 'package:el_taller_del_dulce/pages/home_page.dart';
 import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:el_taller_del_dulce/pages/register_page.dart';
+import 'package:el_taller_del_dulce/pages/splash_page.dart';
 import 'package:el_taller_del_dulce/pages/types_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFE91E63)),
         useMaterial3: true,
       ),
-      home: const NavigationMenu(),
+      home: const SplashPage(),
     );
   }
 }
