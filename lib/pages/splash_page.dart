@@ -1,4 +1,5 @@
 import 'package:el_taller_del_dulce/pages/register_page.dart';
+import 'package:el_taller_del_dulce/pages/star_page.dart';
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 
@@ -21,7 +22,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 2), () async{
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const RegisterPage()));
+        MaterialPageRoute(builder: (context) => StartPage()));
     });
   }
 

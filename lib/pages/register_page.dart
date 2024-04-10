@@ -116,7 +116,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(),
                     labelText: 'Ej. Pedro Perez',
-                    contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                   ),
                   keyboardType: TextInputType.text,
                 ),
@@ -140,7 +141,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(),
                     labelText: 'Ej. pedroperez@gmail.com',
-                    contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -165,7 +167,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     fillColor: Colors.white,
                     border: OutlineInputBorder(),
                     labelText: 'Ej. 1985-02-25',
-                    contentPadding: EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 11, horizontal: 12),
                   ),
                   readOnly: true,
                   onTap: () {
@@ -193,9 +196,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     fillColor: Colors.white,
                     border: const OutlineInputBorder(),
                     labelText: 'Escribe una contraseña',
-                    contentPadding: const EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 11, horizontal: 12),
                     suffixIcon: IconButton(
-                      icon: Icon(_obscurePassword ? Icons.visibility_off : Icons.visibility),
+                      icon: Icon(_obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility),
                       onPressed: () {
                         setState(() {
                           _obscurePassword = !_obscurePassword;
@@ -226,9 +232,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     fillColor: Colors.white,
                     border: const OutlineInputBorder(),
                     labelText: 'Repite la contraseña',
-                    contentPadding: const EdgeInsets.symmetric(vertical: 11, horizontal: 12),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 11, horizontal: 12),
                     suffixIcon: IconButton(
-                      icon: Icon(_obscureRepPassword ? Icons.visibility_off : Icons.visibility),
+                      icon: Icon(_obscureRepPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility),
                       onPressed: () {
                         setState(() {
                           _obscureRepPassword = !_obscureRepPassword;
@@ -246,9 +255,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     _onRegisterButtonClicked();
                   },
                   style: ButtonStyle(
-                    foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                    foregroundColor:
+                        WidgetStateProperty.all<Color>(Colors.black),
                     backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-                          (Set<WidgetState> states) {
+                      (Set<WidgetState> states) {
                         if (states.contains(WidgetState.disabled)) {
                           return Colors.grey;
                         }
@@ -278,4 +288,3 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
-

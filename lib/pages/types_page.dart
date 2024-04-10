@@ -42,6 +42,13 @@ State<TypesPage> createState() => _TypesPageState();
           MaterialPageRoute(builder: (context) => const DetailsPage()));
     });
   }
+  void searchProducts(String query) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const DetailsPage())
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,25 +82,31 @@ State<TypesPage> createState() => _TypesPageState();
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: const Row(
-                    //Const
-                    children: [
-                      Icon(Icons.search),
-                      SizedBox(
-                        width: 16,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Buscar productos...',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
                       ),
-                      Text('Buscar'),
-                    ],
-                  ),
+                    ),
+                    SizedBox(width: 10),
+                    IconButton(
+                      onPressed: () {
+                        searchProducts('Texto del campo de búsqueda');
+                      },
+                      icon: Icon(Icons.search),
+                      color: Colors.black,
+                    ),
+                  ],
                 ),
               ),
+              const SizedBox(height: 50),
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
