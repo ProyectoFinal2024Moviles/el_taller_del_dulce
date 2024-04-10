@@ -1,3 +1,4 @@
+import 'package:el_taller_del_dulce/pages/types_page.dart';
 import 'package:flutter/material.dart';
 
 class Product {
@@ -91,6 +92,15 @@ class _HomePageState extends State<HomePage> {
     currentProducts = desserts;
   }
 
+  void searchProducts(String query) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const TypesPage())
+    );
+    //print('Buscando: $query');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,27 +125,28 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 30),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10), //
-            child: FractionallySizedBox(
-              widthFactor: 0.9,
-              child: Container(
-                width: 50,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: const Row(
-                  //Const
-                  children: [
-                    Icon(Icons.search),
-                    SizedBox(
-                      width: 16,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Buscar productos...',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
-                    Text('Buscar'),
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(width: 10),
+                IconButton(
+                  onPressed: () {
+                    searchProducts('Texto del campo de búsqueda');
+                  },
+                  icon: Icon(Icons.search),
+                  color: Colors.black,
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 50),
@@ -191,9 +202,13 @@ class _HomePageState extends State<HomePage> {
       },
       style: ElevatedButton.styleFrom(
         backgroundColor:
-            currentCategory == category ? Colors.pink : Colors.white,
+            currentCategory == category ? const Color(0xFFE91E63) : Colors.white,
       ),
-      child: Text(category),
+      child: Text(
+        category,
+        style: const TextStyle(
+            color: Colors.black),
+      ),
     );
   }
 }

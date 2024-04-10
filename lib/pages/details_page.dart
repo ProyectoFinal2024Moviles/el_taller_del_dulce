@@ -1,3 +1,4 @@
+import 'package:el_taller_del_dulce/pages/car_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -177,7 +178,11 @@ class _DetailsPageState extends State<DetailsPage> {
                   Spacer(),
                   ElevatedButton(
                     onPressed: () {
-                      // Aquí se puede añadir la lógica para añadir al carrito
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CarPage())
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFE91E63),

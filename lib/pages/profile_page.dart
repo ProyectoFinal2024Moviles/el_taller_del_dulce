@@ -1,4 +1,6 @@
+import 'package:el_taller_del_dulce/pages/details_page.dart';
 import 'package:el_taller_del_dulce/pages/info_page.dart';
+import 'package:el_taller_del_dulce/pages/types_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -100,7 +102,11 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // Lógica para el historial de pedidos
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TypesPage())
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE91E63),

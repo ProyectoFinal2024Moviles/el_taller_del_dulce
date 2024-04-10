@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   void _onLoginButtonClicked() {
     setState(() {
       Navigator.pushReplacement(context, 
-      MaterialPageRoute(builder: (context) => DetailsPage()));
+      MaterialPageRoute(builder: (context) => NavigationMenu()));
     });
   }
 
