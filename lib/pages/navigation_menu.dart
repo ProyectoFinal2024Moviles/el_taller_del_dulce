@@ -1,5 +1,6 @@
 import 'package:el_taller_del_dulce/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'car_page.dart';
 import 'news_page.dart';
 import 'profile_page.dart';

@@ -1,3 +1,4 @@
+import 'package:el_taller_del_dulce/pages/info_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -39,7 +40,20 @@ class _ProfilePageState extends State<ProfilePage> {
                     onPressed: () {
                       // Lógica para cambiar la imagen
                     },
-                    child: const Text('Cambiar Imagen'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE91E63),
+                    ),
+                    child:  const SizedBox(
+                      width: 120, // Establece un ancho específico para el botón
+                      child: Text(
+                        "Cambiar imagen",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -88,13 +102,43 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () {
                     // Lógica para el historial de pedidos
                   },
-                  child: const Text('Historial de Pedidos'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFE91E63),
+                  ),
+                  child:  const SizedBox(
+                    width: 120, // Establece un ancho específico para el botón
+                    child: Text(
+                      "Historial",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black
+                      ),
+                    ),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Lógica para el contacto
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InfoPage())
+                    );
                   },
-                  child: const Text('Contacto'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFE91E63),
+                  ),
+                  child:  const SizedBox(
+                    width: 120, // Establece un ancho específico para el botón
+                    child: Text(
+                      "Contacto",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
