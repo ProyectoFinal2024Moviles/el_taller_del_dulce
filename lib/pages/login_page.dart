@@ -140,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: const SizedBox(
                       width: 120, // Establece un ancho específico para el botón
                       child: Text(
-                        "Iniciar sesión",
+                        "Iniciar sesión →",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       child:
-                      const Text('Registrarme',
+                      const Text('Registrarme →',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -180,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                                 builder: (context) => const NavigationMenu())
                         );
                       },
-                      child: const Text('Continuar sin iniciar sesión',
+                      child: const Text('Continuar sin iniciar sesión →',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

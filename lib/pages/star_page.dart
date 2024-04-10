@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'navigation_menu.dart';
 import 'register_page.dart';
 import 'home_page.dart';
 
@@ -112,50 +113,73 @@ class _StartPageState extends State<StartPage> {
                     },
                   ),
                 ),
-                child: const SizedBox(
-                  width: 120,
-                  child: Text(
-                    "Registrarme →",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterPage())
+                    );
+
+                  },
+                  style: ButtonStyle(
+                    backgroundColor:
+                    MaterialStateProperty.all<Color>(Color(0xFFE91E63)),
+                  ),
+                  child: const SizedBox(
+                    width: 120, // Establece un ancho específico para el botón
+                    child: Text(
+                      "Registrarme →",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black
+                      ),
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 8.0),
               ElevatedButton(
                 onPressed: () {
-                  // Acción cuando se presiona el botón "Iniciar Sesión"
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage())
+                  );
                 },
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.white),
                 ),
                 child: const SizedBox(
-                  width: 120,
+                  width: 120, // Establece un ancho específico para el botón
                   child: Text(
-                    "Iniciar Sesión →",
+                    "Iniciar sesión →",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 8.0),
-              ElevatedButton(
-                onPressed: () {
-                  // Acción cuando se presiona el botón "Continuar sin iniciar sesión"
-                },
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                ),
-                child: const SizedBox(
-                  width: 120,
-                  child: Text(
-                    "Continuar sin iniciar sesión →",
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const NavigationMenu())
+                    );
+                  },
+                  child: const Text('Continuar sin iniciar sesión →',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black
+                    ),
+                  )
               ),
             ],
           ),
