@@ -1,7 +1,6 @@
 import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:flutter/material.dart';
-
-import 'details_page.dart';
+import '../details_page.dart';
 
 class Product {
   final String nombre;
@@ -12,16 +11,8 @@ class Product {
 
 final List<Product> _productos = [
   Product(
-    nombre: "Chocolate",
-    imagen: "assets/images/chocolate_cake.jpg",
-  ),
-  Product(
-    nombre: "Caramelo",
-    imagen: "assets/images/caramelo_cake.jpg",
-  ),
-  Product(
-    nombre: "Red Velvet",
-    imagen: "assets/images/red_velvet_cake.jpg",
+    nombre: "Cheesecake De Piña",
+    imagen: "assets/images/postresSinAzucar.jpg",
   ),
   Product(
     nombre: "Milo",
@@ -29,25 +20,24 @@ final List<Product> _productos = [
   ),
 ];
 
-class TypesPage extends StatefulWidget {
-  const TypesPage({super.key});
+class PostresSinAzucarPage extends StatefulWidget {
+  const PostresSinAzucarPage({super.key});
 
-@override
-State<TypesPage> createState() => _TypesPageState();
+  @override
+  State<PostresSinAzucarPage> createState() => _PostresSinAzucarPageState();
 }
-  class _TypesPageState extends State<TypesPage> {
+
+class _PostresSinAzucarPageState extends State<PostresSinAzucarPage> {
   void _addButtonClicked() {
     setState(() {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const DetailsPage()));
     });
   }
+
   void searchProducts(String query) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => const DetailsPage())
-    );
+        context, MaterialPageRoute(builder: (context) => const DetailsPage()));
   }
 
   @override
@@ -89,19 +79,32 @@ State<TypesPage> createState() => _TypesPageState();
                       child: TextField(
                         decoration: InputDecoration(
                           hintText: 'Buscar productos...',
+                          hintStyle: TextStyle(color: Colors.black),
+                          filled: true,
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 2),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide:
+                                BorderSide(color: Colors.white, width: 2),
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              searchProducts('Texto del campo de búsqueda');
+                            },
+                            icon: const Icon(Icons.search),
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    IconButton(
-                      onPressed: () {
-                        searchProducts('Texto del campo de búsqueda');
-                      },
-                      icon: Icon(Icons.search),
-                      color: Colors.black,
                     ),
                   ],
                 ),
