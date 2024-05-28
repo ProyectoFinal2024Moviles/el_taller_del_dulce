@@ -1,6 +1,11 @@
+import 'package:el_taller_del_dulce/models/User.dart';
+import 'package:el_taller_del_dulce/repository/firebase_api.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -10,6 +15,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
+  final _firebaseApi = FirebaseApi();
   final _name = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
@@ -44,13 +51,65 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
+  void _registerUser(String email, String password) async{
+    var result = await _firebaseApi.registerUser(email,password);
+    if (result == 'weak-password') {
+      _showMgg('La Contraseña debe tener 6 o mas caracteres.');
+    } else if (result == 'email-already-in-use') {
+      _showMgg('Yaexiste una cuenta con ese correo electronico.');
+    } else if (result == "invalid-email"){
+      _showMgg("Correo electronico Invalido.");
+    } else if (result == "network-request-failed"){
+      _showMgg("Sin Conexión");
+    } else{
+      createUser(result);
+    }
+  }
+
+  void createUser(Object? uid) async{
+    var user = UserDulce(uid, _name.text, _email.text, _bornDate);
+    var retult = await _firebaseApi.createUserInDB(user);
+    //_saveUser(user);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+    _showMgg("Usuario Registrado Exitosamente");
+  }
+
+  void _showMgg(String msg){
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text(msg),
+        action: SnackBarAction(
+          label: 'Aceptar',
+          onPressed: scaffold.hideCurrentSnackBar,
+        ),
+      )
+    );
+  }
+
   void _onRegisterButtonClicked() {
     setState(() {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
-    });
+      if (_email.text.isEmpty || _password.text.isEmpty) {
+        _showMgg("Debe digitar correo electronico y contraseña");
+      }else if (!_email.text.isValidEmail()) {
+        _showMgg("El correo electronico es invalido");
+      }else if(_password.text != _repPassword.text) {
+        _showMgg("Las contraseñas son diferentes");
+      }else if(_password.text.length < 6){
+        _showMgg("La contraseña debe tener 6 o mas caracteres");
+          }else {
+            _registerUser(_email.text, _password.text);
+          }
+        }
+    );
+  }
+  
+  void _saveUser(UserDulce user) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("user", jsonEncode(user));
   }
 
   @override
@@ -287,4 +346,16 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
 }
+
+
+
+extension EmailValidator on String{
+  bool isValidEmail(){
+    return RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(this);
+  }
+}
+
+
