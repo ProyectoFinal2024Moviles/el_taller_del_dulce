@@ -1,4 +1,4 @@
-import 'package:el_taller_del_dulce/pages/details_page.dart';
+import 'package:el_taller_del_dulce/pages/product_details/chocolate_cake_page.dart';
 import 'package:el_taller_del_dulce/pages/info_page.dart';
 import 'package:el_taller_del_dulce/pages/types/tradicionales_page.dart';
 import 'package:flutter/material.dart';

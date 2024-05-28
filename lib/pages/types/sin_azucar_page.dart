@@ -1,22 +1,39 @@
-import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:flutter/material.dart';
-import '../details_page.dart';
+import '../product_details/chocolate_cake_page.dart';
+import '../product_details/sin_azucar_fresa_page.dart';
 
 class Product {
   final String nombre;
   final String imagen;
+  final Widget destinationPage;
 
-  Product({required this.nombre, required this.imagen});
+  Product({
+    required this.nombre,
+    required this.imagen,
+    required this.destinationPage,
+  });
 }
 
 final List<Product> _productos = [
   Product(
-    nombre: "Caramelo",
-    imagen: "assets/images/caramelo_cake.jpg",
+    nombre: "Torta de Fresa",
+    imagen: "assets/images/sinazucar.jpeg",
+    destinationPage: sinAzucarFresaPage(),
   ),
   Product(
-    nombre: "Milo",
-    imagen: "assets/images/milo_cake.jpg",
+    nombre: "Torta de Chocolate",
+    imagen: "assets/images/sinazucarChocolate.jpg",
+    destinationPage: DetailsPage(),
+  ),
+  Product(
+    nombre: "Torta de Vainilla",
+    imagen: "assets/images/sinazucarVainilla.jpg",
+    destinationPage: DetailsPage(),
+  ),
+  Product(
+    nombre: "Torta de red Velvet",
+    imagen: "assets/images/sinazucarVelvet.jpg",
+    destinationPage: DetailsPage(),
   ),
 ];
 
@@ -28,16 +45,18 @@ class SinAzucarPage extends StatefulWidget {
 }
 
 class _SinAzucarPageState extends State<SinAzucarPage> {
-  void _addButtonClicked() {
-    setState(() {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const DetailsPage()));
-    });
-  }
-
   void searchProducts(String query) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const DetailsPage()));
+  }
+
+  void navigateToProductPage(Product product) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => product.destinationPage,
+      ),
+    );
   }
 
   @override
@@ -60,9 +79,7 @@ class _SinAzucarPageState extends State<SinAzucarPage> {
           ],
         ),
         backgroundColor: Colors.transparent,
-        // Hace que el fondo del AppBar sea transparente
         elevation: 0,
-        // Quita la sombra del AppBar
         centerTitle: false,
       ),
       backgroundColor: const Color(0xFFF8BBD0),
@@ -121,27 +138,36 @@ class _SinAzucarPageState extends State<SinAzucarPage> {
                 ),
                 itemCount: _productos.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    elevation: 5,
-                    child: Column(
-                      children: <Widget>[
-                        Image.asset(
-                          _productos[index].imagen,
-                          width: 160,
-                          height: 160,
-                          fit: BoxFit.cover,
-                          alignment: Alignment.center,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            _productos[index].nombre,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                  return GestureDetector(
+                    onTap: () => navigateToProductPage(_productos[index]),
+                    child: Card(
+                      elevation: 5,
+                      child: Column(
+                        children: <Widget>[
+                          AspectRatio(
+                            aspectRatio: 1.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4),
+                                topRight: Radius.circular(4),
+                              ),
+                              child: Image.asset(
+                                _productos[index].imagen,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              _productos[index].nombre,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },

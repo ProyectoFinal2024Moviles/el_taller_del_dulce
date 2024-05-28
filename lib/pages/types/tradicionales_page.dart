@@ -1,30 +1,47 @@
-import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:flutter/material.dart';
-import '../details_page.dart';
+import '../product_details/caramelo_cake_page.dart';
+import '../product_details/chocolate_cake_page.dart';
+import '../product_details/envinada_cake.dart';
+import '../product_details/marialuisa_cake.dart';
+import '../product_details/velvet_cake_page.dart';
 
 class Product {
   final String nombre;
   final String imagen;
+  final Widget destinationPage;
 
-  Product({required this.nombre, required this.imagen});
+  Product({
+    required this.nombre,
+    required this.imagen,
+    required this.destinationPage,
+  });
 }
 
 final List<Product> _productos = [
   Product(
     nombre: "Chocolate",
     imagen: "assets/images/chocolate_cake.jpg",
+    destinationPage: DetailsPage(), // chocolateCakePage()
   ),
   Product(
     nombre: "Caramelo",
     imagen: "assets/images/caramelo_cake.jpg",
+    destinationPage: carameloCakePage(),
   ),
   Product(
     nombre: "Red Velvet",
     imagen: "assets/images/red_velvet_cake.jpg",
+    destinationPage: velvetCakePage(),
   ),
   Product(
-    nombre: "Milo",
-    imagen: "assets/images/milo_cake.jpg",
+    nombre: "Maria Luisa",
+    imagen: "assets/images/marialuisa_cake.jpg",
+    destinationPage: marialuisaCakePage(),
+  ),
+  Product(
+    nombre: "Envinada",
+    imagen: "assets/images/envinada_cake.jpg",
+    destinationPage: envinadaCakePage(),
   ),
 ];
 
@@ -36,16 +53,18 @@ class TradicionalesPage extends StatefulWidget {
 }
 
 class _TradicionalesPageState extends State<TradicionalesPage> {
-  void _addButtonClicked() {
-    setState(() {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const DetailsPage()));
-    });
-  }
-
   void searchProducts(String query) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const DetailsPage()));
+  }
+
+  void navigateToProductPage(Product product) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => product.destinationPage,
+      ),
+    );
   }
 
   @override
@@ -68,9 +87,7 @@ class _TradicionalesPageState extends State<TradicionalesPage> {
           ],
         ),
         backgroundColor: Colors.transparent,
-        // Hace que el fondo del AppBar sea transparente
         elevation: 0,
-        // Quita la sombra del AppBar
         centerTitle: false,
       ),
       backgroundColor: const Color(0xFFF8BBD0),
@@ -129,27 +146,36 @@ class _TradicionalesPageState extends State<TradicionalesPage> {
                 ),
                 itemCount: _productos.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    elevation: 5,
-                    child: Column(
-                      children: <Widget>[
-                        Image.asset(
-                          _productos[index].imagen,
-                          width: 160,
-                          height: 160,
-                          fit: BoxFit.cover,
-                          alignment: Alignment.center,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            _productos[index].nombre,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                  return GestureDetector(
+                    onTap: () => navigateToProductPage(_productos[index]),
+                    child: Card(
+                      elevation: 5,
+                      child: Column(
+                        children: <Widget>[
+                          AspectRatio(
+                            aspectRatio: 1.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4),
+                                topRight: Radius.circular(4),
+                              ),
+                              child: Image.asset(
+                                _productos[index].imagen,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              _productos[index].nombre,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },

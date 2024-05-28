@@ -6,8 +6,7 @@ import 'package:el_taller_del_dulce/pages/types/postres_tradicionales_page.dart'
 import 'package:el_taller_del_dulce/pages/types/sin_azucar_page.dart';
 import 'package:el_taller_del_dulce/pages/types/refrigeradas_page.dart';
 import 'package:el_taller_del_dulce/pages/types/tradicionales_page.dart';
-
-import 'details_page.dart';
+import 'product_details/chocolate_cake_page.dart';
 
 class Product {
   final String name;
@@ -113,7 +112,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    currentProducts = desserts;
+    currentProducts = cakes; //categoría de tortas por defecto
   }
 
   void searchProducts(String query) {

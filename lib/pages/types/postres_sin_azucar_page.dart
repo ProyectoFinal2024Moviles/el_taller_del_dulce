@@ -1,6 +1,6 @@
 import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:flutter/material.dart';
-import '../details_page.dart';
+import '../product_details/chocolate_cake_page.dart';
 
 class Product {
   final String nombre;
