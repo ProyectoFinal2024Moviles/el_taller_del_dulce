@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1056124507496",
+    "project_id": "el-taller-del-dulce-2cd2d",
+    "storage_bucket": "el-taller-del-dulce-2cd2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056124507496:android:bb0ec26e8f7534e77b72dd",
+        "android_client_info": {
+          "package_name": "com.example.el_taller_del_dulce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnGre8MPttV-puxbGfj8ckB5RwFkfPZs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

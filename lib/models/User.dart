@@ -1,8 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserDulce{
   var _uid;
   var _name;
   var _email;
   var _date;
+  var _urlPicture;
+
+  get urlPicture => _urlPicture;
+
+  set urlPicture(value) {
+    _urlPicture = value;
+  }
 
   UserDulce.Empty();
 
@@ -25,14 +34,17 @@ class UserDulce{
     'uid': _uid,
     'name': _name,
     'email': _email,
-    'date': _date
+    'date': _date,
+    'urlPicture' : _urlPicture
   };
 
   UserDulce.fromJson(Map<String, dynamic> json)
       : _uid = json['uid'],
         _name = json['name'],
         _email = json['email'],
-        _date = json['date'];
+        _date = json['date'],
+        _urlPicture = json["urlPicture"];
+
 }
 
 

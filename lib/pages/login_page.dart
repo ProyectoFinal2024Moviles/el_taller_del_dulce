@@ -39,23 +39,25 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _onLoginButtonClicked() {
-    final result = _firebaseApi.loginUser(_email.text, _password.text);
-    setState(() {
-      if (_email.text.isEmpty || _password.text.isEmpty) {
-        _showMgg("Debe digitar correo electronico y contraseña");
-      }else  if (!_email.text.isValidEmail()) {
-        _showMgg("El correo electronico es invalido");
-      }else if(_password.text.length < 6){
-        _showMgg("La contraseña debe tener 6 o mas caracteres");
-      }else {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const NavigationMenu()),
-        );
-        _showMgg("Bienvenido");
+  void _onLoginButtonClicked() async{
+    if(!_email.text.isValidEmail()){
+      _showMgg("El correo eeectronico es invalido");
+    }else if (_email.text.isEmpty || _password.text.isEmpty) {
+      _showMgg("Debe digitar correo electronico y contraseña");
+    }else {
+      final result = await _firebaseApi.loginUser(_email.text, _password.text);
+        if (!_email.text.isValidEmail()) {
+          _showMgg("El correo electronico es invalido");
+        }else if (result == "invalid-credential") {
+          _showMgg("El correo electronico o contraseña incorrectas");
+        }else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const NavigationMenu()),
+          );
+          _showMgg("Bienvenido");
       }
-    });
+    }
   }
 
   getUser() async{
@@ -64,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
     userLoaded = UserDulce.fromJson(userMap);
   }
     
-  
+
   @override
   void initState() {
     //getUser();

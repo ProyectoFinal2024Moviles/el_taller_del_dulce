@@ -1,7 +1,15 @@
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:el_taller_del_dulce/pages/details_page.dart';
 import 'package:el_taller_del_dulce/pages/info_page.dart';
 import 'package:el_taller_del_dulce/pages/types_page.dart';
 import 'package:flutter/material.dart';
+import 'package:el_taller_del_dulce/models/User.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+
+import 'login_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -11,6 +19,45 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  UserDulce? user;
+  File? image;
+  //final uid = FirebaseAuth.instance.currentUser?.uid;
+  //final _nameUser = FirebaseFirestore.instance.collection("users").doc(uid).get('name');
+  //final _dateUser = FirebaseFirestore.instance.collection("users").doc(uid).get('date');
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    User? firebaseUser = FirebaseAuth.instance.currentUser;
+    if (firebaseUser != null) {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(firebaseUser.uid)
+          .get();
+      setState(() {
+       // user = UserDulce.fromFirestore(userDoc);
+      });
+    }
+  }
+
+  Future pickImage() async {
+    try{
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if(image == null) return;
+      final imageTemp = File(image.path);
+      setState((){
+        this.image = imageTemp;
+      });
+    } on PlatformException catch (e){
+      print('faile to pick image: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Noticias y promociones',
+              'Perfil',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -30,17 +77,20 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             Center(
-              child: Column(
+              child: Column( //añadoendo imagen del usuario
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
                     radius: 50,
-                    backgroundImage: NetworkImage(
-                        'https://via.placeholder.com/150'), // Coloca la URL de la imagen del usuario aquí
+                    backgroundImage: image != null
+                        ? FileImage(image!) // Muestra la imagen seleccionada
+                        : const NetworkImage('https://via.placeholder.com/150') as ImageProvider, // Muestra la imagen por defecto si no hay una seleccionada
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () {
-                      // Lógica para cambiar la imagen
+                    onPressed: () async {
+                      //seleccionar imagen
+                      pickImage();
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFE91E63),
@@ -58,63 +108,64 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                 ],
+
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Datos de Registro:',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+
+            Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+            child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>?>>(
+            stream: FirebaseFirestore.instance
+                .collection("users")
+                .doc(FirebaseAuth.instance.currentUser?.uid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Text("Loading");
+              }
+              var user = snapshot.data!.data();
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Hola ${user?['name']}',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text('Correo eléctronico: ${user?['email']}',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text('Fecha de Nacimiento: ${user?['date']}',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              );
+            },
             ),
-            const SizedBox(height: 10),
-            ListTile(
-              title: const Text('Sombre: Pedro Pérez'), // Cambia esto por el nombre del usuario
-              trailing: const Icon(Icons.edit), // Icono para editar el nombre
-              onTap: () {
-                // Lógica para editar el nombre
-              },
-            ),
-            ListTile(
-              title: const Text(
-                  'Correo Electrónico: pedroperez@gmail.com'), // Cambia esto por el correo del usuario
-              trailing: const Icon(Icons.edit), // Icono para editar el correo
-              onTap: () {
-                // Lógica para editar el correo
-              },
-            ),
-            ListTile(
-              title: const Text(
-                  'Fecha de Nacimiento: 01/01/1990'), // Cambia esto por la fecha de nacimiento del usuario
-              trailing: const Icon(Icons.edit), // Icono para editar la fecha de nacimiento
-              onTap: () {
-                // Lógica para editar la fecha de nacimiento
-              },
-            ),
-            ListTile(
-              title: const Text('Contraseña: ********'), // Cambia esto por la contraseña del usuario
-              trailing: const Icon(Icons.edit), // Icono para editar la contraseña
-              onTap: () {
-                // Lógica para editar la contraseña
-              },
             ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TypesPage())
-                    );
-                  },
+                  onPressed:_onCerrarButtonClicked,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE91E63),
                   ),
                   child:  const SizedBox(
                     width: 120, // Establece un ancho específico para el botón
                     child: Text(
-                      "Historial",
+                      "Cerrar Sesión",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -124,13 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const InfoPage())
-                    );
-                  },
+                  onPressed:_onCerrarButtonClicked,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE91E63),
                   ),
@@ -153,4 +198,31 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
+  void _onCerrarButtonClicked() {
+    AlertDialog alert = AlertDialog(
+      title: const Text("Advertencia"),
+      content: const Text("¿Está seguro que desea cerrar sesión?"),
+      actions: <Widget>[
+
+        TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancelar')),
+        TextButton(
+          child: const Text('Aceptar'),
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const LoginPage()));
+          },
+        ),
+      ],
+    );
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        });
+  }
+
 }

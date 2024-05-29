@@ -62,4 +62,15 @@ class FirebaseApi{
     }
   }
 
+  Future<Object?>  getUserInfo(UserDulce user) async {
+    try{
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      final document = await FirebaseFirestore.instance.collection("users").doc(uid).snapshots();
+      return user.uid;
+    } on FirebaseException catch (e) {
+      print("FirebaseEception ${e.code}");
+      return e.code;
+    }
+  }
+
 }

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({super.key});
@@ -7,14 +11,58 @@ class InfoPage extends StatefulWidget {
   State<InfoPage> createState() => _InfoPageState();
 }
 
+final _name = TextEditingController();
+final _email = TextEditingController();
+final _msg = TextEditingController();
+
 class _InfoPageState extends State<InfoPage> {
-  final _name = TextEditingController();
-  final _email = TextEditingController();
-  final _msg = TextEditingController();
+  Future _onSendButtonClicked() async {
+    if (_name.text.isEmpty || _email.text.isEmpty || _msg.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Por favor complete todos los campos')),
+      );
+      return;
+    }
 
-  void _onSendButtonClicked() {
+    const serviceId = 'service_2qtv2s8';
+    const templateId = 'template_sd2golx';
+    const userId = 'cjrY0Swe0XuzDlj68';
+    final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'service_id': serviceId,
+        'template_id': templateId,
+        'user_id': userId,
+        'template_params': {
+          'user_name': _name.text,
+          'user_email': _email.text,
+          'user_msg': _msg.text,
+        }
+      }),
+    );
 
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Correo enviado exitosamente')),
+      );
+      _clearFields();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Error al enviar el correo')),
+      );
+    }
 
+    print(response.statusCode);
+  }
+
+  void _clearFields() {
+    _name.clear();
+    _email.clear();
+    _msg.clear();
   }
 
   @override
@@ -38,9 +86,7 @@ class _InfoPageState extends State<InfoPage> {
           ],
         ),
         backgroundColor: Colors.transparent,
-        // Hace que el fondo del AppBar sea transparente
         elevation: 0,
-        // Quita la sombra del AppBar
         centerTitle: false,
       ),
       body: Padding(
@@ -58,13 +104,39 @@ class _InfoPageState extends State<InfoPage> {
                   height: 8.0,
                 ),
                 const Text(
-                  "Encuentra acá nuestro punto físico de venta",
+                  "Encuentra acá nuestro punto físico de venta:",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                const Image(
-                  image: AssetImage('assets/images/maps.png'),
-                  width: 300,
+                const SizedBox(
+                  height: 8.0,
+                ),
+                SizedBox(
                   height: 300,
+                  child: FlutterMap(
+                    options: const MapOptions(
+                      initialCenter: LatLng(6.2332247, -75.6042192),
+                      initialZoom: 16.4,
+                    ),
+                    children: [
+                      TileLayer(
+                        urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        userAgentPackageName: 'com.example.el_taller_del_dulce',
+                      ),
+                      const MarkerLayer(
+                        markers: [
+                          Marker(
+                            point: LatLng(6.2332247, -75.6042192),
+                            width: 80.0,
+                            height: 80.0,
+                            child: Icon(
+                              Icons.location_pin,
+                              color: Color(0xFFE91E63),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(
                   height: 8.0,
@@ -94,7 +166,7 @@ class _InfoPageState extends State<InfoPage> {
                     contentPadding: EdgeInsets.symmetric(
                         vertical: 11, horizontal: 12),
                   ),
-                  keyboardType: TextInputType.visiblePassword,
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(
                   height: 8.0,
@@ -121,17 +193,7 @@ class _InfoPageState extends State<InfoPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE91E63),
                   ),
-                  child: const SizedBox(
-                    width: 120, // Establece un ancho específico para el botón
-                    child: Text(
-                      "Enviar",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
-                    ),
-                  ),
+                  child: const Text('Enviar'),
                 ),
               ],
             ),
@@ -141,4 +203,3 @@ class _InfoPageState extends State<InfoPage> {
     );
   }
 }
-
