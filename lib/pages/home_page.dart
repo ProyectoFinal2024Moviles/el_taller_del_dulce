@@ -149,14 +149,6 @@ class _HomePageState extends State<HomePage> {
             margin: const EdgeInsets.only(left: 16),
             child: const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Bienvenid@\nDaniela Villadiego',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
             ),
           ),
           const SizedBox(height: 30),

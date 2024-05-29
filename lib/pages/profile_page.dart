@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:el_taller_del_dulce/pages/details_page.dart';
 import 'package:el_taller_del_dulce/pages/info_page.dart';
-import 'package:el_taller_del_dulce/pages/types_page.dart';
 import 'package:flutter/material.dart';
 import 'package:el_taller_del_dulce/models/User.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

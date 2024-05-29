@@ -34,7 +34,7 @@ class _PersonalizadasPageState extends State<PersonalizadasPage> {
   }
 
   Future<void> _launchWhatsApp() async {
-    const phoneNumber = '+573023421308';
+    const phoneNumber = '+573148136859';
     const message = 'Hola, me gustaría personalizar una torta.';
     final url =
         'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}';
