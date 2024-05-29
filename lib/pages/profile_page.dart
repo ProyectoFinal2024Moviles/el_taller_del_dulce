@@ -1,6 +1,6 @@
-import 'package:el_taller_del_dulce/pages/details_page.dart';
+import 'package:el_taller_del_dulce/pages/product_details/chocolate_cake_page.dart';
 import 'package:el_taller_del_dulce/pages/info_page.dart';
-import 'package:el_taller_del_dulce/pages/types_page.dart';
+import 'package:el_taller_del_dulce/pages/types/tradicionales_page.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,7 +15,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8BBD0),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -45,15 +44,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFE91E63),
                     ),
-                    child:  const SizedBox(
+                    child: const SizedBox(
                       width: 120, // Establece un ancho específico para el botón
                       child: Text(
                         "Cambiar imagen",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black
-                        ),
+                            fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   ),
@@ -67,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             ListTile(
-              title: const Text('Sombre: Pedro Pérez'), // Cambia esto por el nombre del usuario
+              title: const Text('Nombre: Pedro Pérez'),
               trailing: const Icon(Icons.edit), // Icono para editar el nombre
               onTap: () {
                 // Lógica para editar el nombre
@@ -84,14 +81,17 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTile(
               title: const Text(
                   'Fecha de Nacimiento: 01/01/1990'), // Cambia esto por la fecha de nacimiento del usuario
-              trailing: const Icon(Icons.edit), // Icono para editar la fecha de nacimiento
+              trailing: const Icon(
+                  Icons.edit), // Icono para editar la fecha de nacimiento
               onTap: () {
                 // Lógica para editar la fecha de nacimiento
               },
             ),
             ListTile(
-              title: const Text('Contraseña: ********'), // Cambia esto por la contraseña del usuario
-              trailing: const Icon(Icons.edit), // Icono para editar la contraseña
+              title: const Text(
+                  'Contraseña: ********'), // Cambia esto por la contraseña del usuario
+              trailing:
+                  const Icon(Icons.edit), // Icono para editar la contraseña
               onTap: () {
                 // Lógica para editar la contraseña
               },
@@ -105,21 +105,18 @@ class _ProfilePageState extends State<ProfilePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const TypesPage())
-                    );
+                            builder: (context) => const TradicionalesPage()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE91E63),
                   ),
-                  child:  const SizedBox(
+                  child: const SizedBox(
                     width: 120, // Establece un ancho específico para el botón
                     child: Text(
                       "Historial",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
+                          fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
                 ),
@@ -128,21 +125,18 @@ class _ProfilePageState extends State<ProfilePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const InfoPage())
-                    );
+                            builder: (context) => const InfoPage()));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE91E63),
                   ),
-                  child:  const SizedBox(
+                  child: const SizedBox(
                     width: 120, // Establece un ancho específico para el botón
                     child: Text(
                       "Contacto",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
+                          fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
                 ),

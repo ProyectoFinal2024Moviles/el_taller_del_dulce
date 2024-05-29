@@ -1,3 +1,4 @@
+import 'package:el_taller_del_dulce/pages/home_page.dart'; // Asegúrate de que esta importación sea correcta
 import 'package:flutter/material.dart';
 
 class CartItem {
@@ -15,30 +16,24 @@ class CartItem {
 }
 
 class CarPage extends StatefulWidget {
-  const CarPage({super.key});
+  final CartItem? cartItem;
+
+  const CarPage({super.key, this.cartItem});
 
   @override
   _CarPage createState() => _CarPage();
 }
 
 class _CarPage extends State<CarPage> {
-  final List<CartItem> _cartItems = [
-    CartItem(
-      name: 'Torta de chocolate',
-      image: 'assets/images/chocolate.jpg',
-      price: 45000,
-    ),
-    CartItem(
-      name: 'Refrigerada',
-      image: 'assets/images/refrigerada.jpg',
-      price: 65000,
-    ),
-    CartItem(
-      name: 'Coca-Cola 1.5L',
-      image: 'assets/images/cocacola.png',
-      price: 5000,
-    ),
-  ];
+  final List<CartItem> _cartItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.cartItem != null) {
+      _cartItems.add(widget.cartItem!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +42,7 @@ class _CarPage extends State<CarPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-          ),
-          SizedBox(width: 70),
+          const SizedBox(width: 70),
           Expanded(
             child: ListView.builder(
               itemCount: _cartItems.length,
@@ -59,16 +51,17 @@ class _CarPage extends State<CarPage> {
               },
             ),
           ),
+          const SizedBox(width: 10),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 _buildCartText('Subtotal:', _calculateSubtotal()),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _buildCartText('Envío:', _calculateShipping()),
-                SizedBox(height: 60),
+                const SizedBox(height: 60),
                 _buildCartText('Total:', _calculateTotal()),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: null,
                   style: ButtonStyle(
@@ -92,7 +85,26 @@ class _CarPage extends State<CarPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '//');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE91E63),
+                    ),
+                    child: const Text(
+                      'Seguir comprando',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
               ],
             ),
           ),
@@ -124,27 +136,27 @@ class _CarPage extends State<CarPage> {
               ),
             ),
           ),
-          SizedBox(width: 50),
+          const SizedBox(width: 50),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   item.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   '\$${item.price.toStringAsFixed(2)}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     InkWell(
@@ -160,13 +172,13 @@ class _CarPage extends State<CarPage> {
                           borderRadius: BorderRadius.circular(50),
                           color: Colors.pink,
                         ),
-                        padding: EdgeInsets.all(10),
-                        child: Icon(Icons.remove, color: Colors.black),
+                        padding: const EdgeInsets.all(10),
+                        child: const Icon(Icons.remove, color: Colors.black),
                       ),
                     ),
-                    SizedBox(width: 20), // Espacio entre los botones
+                    const SizedBox(width: 20), // Espacio entre los botones
                     Text(item.quantity.toString()),
-                    SizedBox(width: 20), // Espacio entre los botones
+                    const SizedBox(width: 20), // Espacio entre los botones
                     InkWell(
                       onTap: () {
                         setState(() {
@@ -178,11 +190,11 @@ class _CarPage extends State<CarPage> {
                           borderRadius: BorderRadius.circular(50),
                           color: Colors.pink,
                         ),
-                        padding: EdgeInsets.all(10),
-                        child: Icon(Icons.add, color: Colors.black),
+                        padding: const EdgeInsets.all(10),
+                        child: const Icon(Icons.add, color: Colors.black),
                       ),
                     ),
-                    SizedBox(width: 50), // Espacio entre los botones
+                    const SizedBox(width: 50), // Espacio entre los botones
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -192,7 +204,7 @@ class _CarPage extends State<CarPage> {
                               _cartItems.remove(item);
                             });
                           },
-                          child: Icon(Icons.delete, color: Colors.pink),
+                          child: const Icon(Icons.delete, color: Colors.pink),
                         ),
                       ],
                     ),
@@ -214,7 +226,7 @@ class _CarPage extends State<CarPage> {
         Text(title),
         Text(
           '\$${value.toStringAsFixed(2)}',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ],
     );
@@ -222,17 +234,25 @@ class _CarPage extends State<CarPage> {
 
   double _calculateSubtotal() {
     double subtotal = 0;
-    _cartItems.forEach((item) {
+    for (var item in _cartItems) {
       subtotal += item.price * item.quantity;
-    });
+    }
     return subtotal;
   }
 
   double _calculateShipping() {
+    double subtotal = _calculateSubtotal();
+    if (subtotal == 0) {
+      return 0;
+    }
     return 7000;
   }
 
   double _calculateTotal() {
-    return _calculateSubtotal() + _calculateShipping();
+    double subtotal = _calculateSubtotal();
+    if (subtotal == 0) {
+      return 0;
+    }
+    return subtotal + _calculateShipping();
   }
 }
