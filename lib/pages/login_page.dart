@@ -1,76 +1,31 @@
-import 'dart:convert';
-import 'package:el_taller_del_dulce/repository/firebase_api.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:el_taller_del_dulce/pages/customized_page.dart';
+import 'package:el_taller_del_dulce/pages/details_page.dart';
+import 'package:el_taller_del_dulce/pages/home_page.dart';
 import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:el_taller_del_dulce/pages/register_page.dart';
+import 'package:el_taller_del_dulce/pages/customized_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:el_taller_del_dulce/models/User.dart';
 
 class LoginPage extends StatefulWidget {
-
   const LoginPage({super.key});
-
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final FirebaseApi _firebaseApi = FirebaseApi();
   final _password = TextEditingController();
   final _email = TextEditingController();
   bool _obscurePassword = true;
 
-  UserDulce userLoaded = UserDulce.Empty();
 
-  void _showMgg(String msg){
-    final scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-        SnackBar(
-          content: Text(msg),
-          action: SnackBarAction(
-            label: 'Aceptar',
-            onPressed: scaffold.hideCurrentSnackBar,
-          ),
-        )
-    );
-  }
-
-  void _onLoginButtonClicked() async{
-    if(!_email.text.isValidEmail()){
-      _showMgg("El correo eeectronico es invalido");
-    }else if (_email.text.isEmpty || _password.text.isEmpty) {
-      _showMgg("Debe digitar correo electronico y contraseña");
-    }else {
-      final result = await _firebaseApi.loginUser(_email.text, _password.text);
-        if (!_email.text.isValidEmail()) {
-          _showMgg("El correo electronico es invalido");
-        }else if (result == "invalid-credential") {
-          _showMgg("El correo electronico o contraseña incorrectas");
-        }else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const NavigationMenu()),
-          );
-          _showMgg("Bienvenido");
-      }
-    }
-  }
-
-  getUser() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    Map<String, dynamic> userMap = jsonDecode(prefs.getString("user")!);
-    userLoaded = UserDulce.fromJson(userMap);
-  }
-    
-
-  @override
-  void initState() {
-    //getUser();
-    super.initState();
+  void _onLoginButtonClicked() {
+    setState(() {
+      Navigator.pushReplacement(context, 
+      MaterialPageRoute(builder: (context) => NavigationMenu()));
+    });
   }
 
   @override
@@ -100,8 +55,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Center(
-            child: SingleChildScrollView(
-              child: Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   const Image(
@@ -248,8 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
             ],
           ),
-            ),
-          ),
+        ),
       ),
     );
   }

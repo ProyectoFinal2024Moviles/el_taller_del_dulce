@@ -1,9 +1,10 @@
-import 'package:el_taller_del_dulce/pages/home_page.dart';
+//import 'package:el_taller_del_dulce/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'car_page.dart';
 import 'news_page.dart';
 import 'profile_page.dart';
+import 'home_page.dart';
 
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
@@ -21,17 +22,18 @@ class _NavigationMenu extends State<NavigationMenu> {
     ProfilePage(),
   ];
 
-  void _onItemTapped(int index){
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8BBD0),
       appBar: AppBar(
-        title:       Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Image.asset(
@@ -46,7 +48,8 @@ class _NavigationMenu extends State<NavigationMenu> {
             ),
           ],
         ),
-        backgroundColor: Colors.transparent, // Hace que el fondo del AppBar sea transparente
+        backgroundColor:
+            Colors.transparent, // Hace que el fondo del AppBar sea transparente
         elevation: 0, // Quita la sombra del AppBar
         centerTitle: false,
       ),
@@ -55,10 +58,19 @@ class _NavigationMenu extends State<NavigationMenu> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home, color: Color(0xFFE91E63)), label: 'Inicio', backgroundColor: Colors.white),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart, color: Color(0xFFE91E63)), label: 'Carrito'),
-          BottomNavigationBarItem(icon: Icon(Icons.announcement, color: Color(0xFFE91E63)), label: 'Noticias'),
-          BottomNavigationBarItem(icon: Icon(Icons.person, color: Color(0xFFE91E63)), label: 'Perfil'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: Color(0xFFE91E63)),
+              label: 'Inicio',
+              backgroundColor: Colors.white),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart, color: Color(0xFFE91E63)),
+              label: 'Carrito'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.announcement, color: Color(0xFFE91E63)),
+              label: 'Noticias'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person, color: Color(0xFFE91E63)),
+              label: 'Perfil'),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Color(0xFFE91E63),
