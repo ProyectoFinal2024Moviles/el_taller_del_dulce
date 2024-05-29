@@ -1,7 +1,8 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PersonalizadasPage extends StatefulWidget {
   @override
@@ -32,6 +33,19 @@ class _PersonalizadasPageState extends State<PersonalizadasPage> {
     }
   }
 
+  Future<void> _launchWhatsApp() async {
+    const phoneNumber = '+573023421308';
+    const message = 'Hola, me gustaría personalizar una torta.';
+    final url =
+        'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'No se pudo abrir $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +53,15 @@ class _PersonalizadasPageState extends State<PersonalizadasPage> {
       appBar: AppBar(
         backgroundColor: Colors.pink,
         elevation: 0,
-        toolbarHeight: 10,
+        toolbarHeight: 60,
+        actions: [
+          IconButton(
+            icon: FaIcon(FontAwesomeIcons.whatsapp),
+            onPressed: _launchWhatsApp,
+            color: Colors.white,
+            iconSize: 30.0,
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(top: 0),
@@ -84,85 +106,14 @@ class _PersonalizadasPageState extends State<PersonalizadasPage> {
                       ),
                       const SizedBox(width: 10),
                       const Text(
-                        "En esta sección podrás comunicarte con un asesor para personalizar tu torta a medida. Elige el "
+                        "En esta sección podrás dirigirte a nuestro whatsapp para hablar con un asesor y personalizar tu torta a medida. Elige el "
                         "tamaño, sabores y decoración y haz todas las preguntas que necesites sobre tiempos de entrega "
                         "y precios. También puedes compartir fotos para inspirar el diseño de tu torta.",
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 20),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(width: 50),
                     ],
                   ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              Container(
-                height: 500,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF8BBD0),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.white),
-                ),
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _messages.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 5, horizontal: 10),
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: _messages[index]['isImage']
-                                ? Image.file(
-                                    File(_messages[index]['text']),
-                                    fit: BoxFit.cover,
-                                  )
-                                : Text(_messages[index]['text']),
-                          );
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.camera_alt),
-                            onPressed: _sendImage,
-                            color: Colors.pink,
-                          ),
-                          Expanded(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Escribe un mensaje...',
-                                filled: true,
-                                fillColor: Colors.white,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                  borderSide: BorderSide
-                                      .none, // Elimina el borde por defecto
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal:
-                                        20), // Ajusta el padding interno
-                              ),
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.send),
-                            onPressed: _sendMessage,
-                            color: Colors.pink,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ],
