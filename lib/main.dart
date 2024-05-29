@@ -3,13 +3,17 @@ import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:el_taller_del_dulce/pages/register_page.dart';
 import 'package:el_taller_del_dulce/pages/splash_page.dart';
 import 'package:el_taller_del_dulce/pages/types_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -20,7 +24,8 @@ class MyApp extends StatelessWidget {
       title: 'El taller del dulce',
       localizationsDelegates: const[
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const[
         Locale("es", "CO"),
