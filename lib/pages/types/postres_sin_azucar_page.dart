@@ -1,22 +1,42 @@
-import 'package:el_taller_del_dulce/pages/navigation_menu.dart';
 import 'package:flutter/material.dart';
+import '../product_details/arrozConLecheSinAzucar_page.dart';
+import '../product_details/cheesecakeSinAzucar_page.dart';
 import '../product_details/chocolate_cake_page.dart';
+import '../product_details/flanSinAzucar_page.dart';
+import '../product_details/postreTresLechesSinAzucar_page.dart';
 
 class Product {
   final String nombre;
   final String imagen;
+  final Widget destinationPage;
 
-  Product({required this.nombre, required this.imagen});
+  Product({
+    required this.nombre,
+    required this.imagen,
+    required this.destinationPage,
+  });
 }
 
 final List<Product> _productos = [
   Product(
-    nombre: "Cheesecake De Piña",
+    nombre: "CheeseCake de Piña",
     imagen: "assets/images/postresSinAzucar.jpg",
+    destinationPage: CheesecakeSinAzucarPage(), // chocolateCakePage()
   ),
   Product(
-    nombre: "Milo",
-    imagen: "assets/images/milo_cake.jpg",
+    nombre: "Postres Tres Leches",
+    imagen: "assets/images/postresSinAzucarTresLeches.jpg",
+    destinationPage: TresLechesSinAzucarPage(),
+  ),
+  Product(
+    nombre: "Flan de Calabaza",
+    imagen: "assets/images/postresSinAzucarFlan.jpg",
+    destinationPage: FlanSinAzucarPage(),
+  ),
+  Product(
+    nombre: "Arroz Con Leche",
+    imagen: "assets/images/postresSinAzucarArrozConLeche.jpg",
+    destinationPage: ArrozconlecheSinAzucarPage(),
   ),
 ];
 
@@ -28,16 +48,18 @@ class PostresSinAzucarPage extends StatefulWidget {
 }
 
 class _PostresSinAzucarPageState extends State<PostresSinAzucarPage> {
-  void _addButtonClicked() {
-    setState(() {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const DetailsPage()));
-    });
-  }
-
   void searchProducts(String query) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => const DetailsPage()));
+  }
+
+  void navigateToProductPage(Product product) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => product.destinationPage,
+      ),
+    );
   }
 
   @override
@@ -60,9 +82,7 @@ class _PostresSinAzucarPageState extends State<PostresSinAzucarPage> {
           ],
         ),
         backgroundColor: Colors.transparent,
-        // Hace que el fondo del AppBar sea transparente
         elevation: 0,
-        // Quita la sombra del AppBar
         centerTitle: false,
       ),
       backgroundColor: const Color(0xFFF8BBD0),
@@ -109,7 +129,17 @@ class _PostresSinAzucarPageState extends State<PostresSinAzucarPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
+              const Text(
+                "Postres Sin Azúcar",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE91E63), // Color rosado
+                ),
+                textAlign: TextAlign.left, // Alineado a la izquierda
+              ),
+              const SizedBox(height: 15),
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -121,27 +151,36 @@ class _PostresSinAzucarPageState extends State<PostresSinAzucarPage> {
                 ),
                 itemCount: _productos.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    elevation: 5,
-                    child: Column(
-                      children: <Widget>[
-                        Image.asset(
-                          _productos[index].imagen,
-                          width: 160,
-                          height: 160,
-                          fit: BoxFit.cover,
-                          alignment: Alignment.center,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            _productos[index].nombre,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                  return GestureDetector(
+                    onTap: () => navigateToProductPage(_productos[index]),
+                    child: Card(
+                      elevation: 5,
+                      child: Column(
+                        children: <Widget>[
+                          AspectRatio(
+                            aspectRatio: 1.0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4),
+                                topRight: Radius.circular(4),
+                              ),
+                              child: Image.asset(
+                                _productos[index].imagen,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              _productos[index].nombre,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },

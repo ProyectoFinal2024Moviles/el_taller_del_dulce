@@ -134,7 +134,17 @@ class _TradicionalesPageState extends State<TradicionalesPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
+              const Text(
+                "Tortas Tradicionales",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFE91E63), // Color rosado
+                ),
+                textAlign: TextAlign.left, // Alineado a la izquierda
+              ),
+              const SizedBox(height: 15),
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

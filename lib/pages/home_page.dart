@@ -1,7 +1,12 @@
+import 'package:el_taller_del_dulce/pages/product_details/PromoTortaChocolate_page.dart';
+import 'package:el_taller_del_dulce/pages/product_details/cocacola_drink.dart';
+import 'package:el_taller_del_dulce/pages/product_details/granizados_drink.dart';
+import 'package:el_taller_del_dulce/pages/product_details/hatsu_drink.dart';
+import 'package:el_taller_del_dulce/pages/product_details/jugo_naranja_drink.dart';
 import 'package:flutter/material.dart';
 import 'package:el_taller_del_dulce/pages/types/personalizadas.dart';
 import 'package:el_taller_del_dulce/pages/types/postres_sin_azucar_page.dart';
-import 'package:el_taller_del_dulce/pages/types/postres_sin_lactosa_page.dart';
+import 'package:el_taller_del_dulce/pages/types/postres_sin_leche_page.dart';
 import 'package:el_taller_del_dulce/pages/types/postres_tradicionales_page.dart';
 import 'package:el_taller_del_dulce/pages/types/sin_azucar_page.dart';
 import 'package:el_taller_del_dulce/pages/types/refrigeradas_page.dart';
@@ -55,7 +60,7 @@ final List<Product> desserts = [
     destinationPage: PostresSinAzucarPage(),
   ),
   Product(
-    name: 'Postres sin Lactosa',
+    name: 'Postres sin Leche',
     image: 'assets/images/sinLeche.jpg',
     destinationPage: PostresSinLactosaPage(),
   ),
@@ -65,22 +70,22 @@ final List<Product> drinks = [
   Product(
     name: 'Coca-Cola',
     image: 'assets/images/cocacola.png',
-    destinationPage: DetailsPage(),
+    destinationPage: CocaColaDrinkPage(),
   ),
   Product(
     name: 'Jugo de naranja',
     image: 'assets/images/jugoNaranja.jpeg',
-    destinationPage: DetailsPage(),
+    destinationPage: JugoNaranjaDrinkPage(),
   ),
   Product(
-    name: 'Hatsu',
+    name: 'Hatsu Tea',
     image: 'assets/images/hatsu.jpeg',
-    destinationPage: DetailsPage(),
+    destinationPage: HatsuDrinkPage(),
   ),
   Product(
-    name: 'Granizados de Café',
+    name: 'Granizado de Café',
     image: 'assets/images/granizado.jpg',
-    destinationPage: DetailsPage(),
+    destinationPage: GranizadoDrinkPage(),
   ),
 ];
 
@@ -88,12 +93,12 @@ final List<Product> offers = [
   Product(
     name: 'Granizados de Café 2x1 los días martes',
     image: 'assets/images/granizado.jpg',
-    destinationPage: DetailsPage(),
+    destinationPage: GranizadoDrinkPage(),
   ),
   Product(
-    name: '¡HOY! Torta de Chocolate en 35.000',
+    name: 'Promo torta de chocolate',
     image: 'assets/images/chocolate.jpg',
-    destinationPage: DetailsPage(),
+    destinationPage: PromoTortaChocolatePage(),
   ),
 ];
 
