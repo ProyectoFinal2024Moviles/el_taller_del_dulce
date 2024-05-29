@@ -17,12 +17,8 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   UserDulce? user;
   File? image;
-  //final uid = FirebaseAuth.instance.currentUser?.uid;
-  //final _nameUser = FirebaseFirestore.instance.collection("users").doc(uid).get('name');
-  //final _dateUser = FirebaseFirestore.instance.collection("users").doc(uid).get('date');
 
   @override
   void initState() {
@@ -38,21 +34,21 @@ class _ProfilePageState extends State<ProfilePage> {
           .doc(firebaseUser.uid)
           .get();
       setState(() {
-       // user = UserDulce.fromFirestore(userDoc);
+        // user = UserDulce.fromFirestore(userDoc);
       });
     }
   }
 
   Future pickImage() async {
-    try{
+    try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(image == null) return;
+      if (image == null) return;
       final imageTemp = File(image.path);
-      setState((){
+      setState(() {
         this.image = imageTemp;
       });
-    } on PlatformException catch (e){
-      print('faile to pick image: $e');
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
     }
   }
 
@@ -60,7 +56,6 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8BBD0),
-
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -75,117 +70,112 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 10),
             Center(
-              child: Column( //añadoendo imagen del usuario
+              child: Column(
                 children: [
                   CircleAvatar(
                     radius: 50,
                     backgroundImage: image != null
-                        ? FileImage(image!) // Muestra la imagen seleccionada
-                        : const NetworkImage('https://via.placeholder.com/150') as ImageProvider, // Muestra la imagen por defecto si no hay una seleccionada
+                        ? FileImage(image!)
+                        : const NetworkImage('https://via.placeholder.com/150')
+                            as ImageProvider,
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () async {
-                      //seleccionar imagen
                       pickImage();
-
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFE91E63),
                     ),
-                    child:  const SizedBox(
-                      width: 120, // Establece un ancho específico para el botón
+                    child: const SizedBox(
+                      width: 120,
                       child: Text(
                         "Cambiar imagen",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black
-                        ),
+                            fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
                   ),
                 ],
-
               ),
             ),
             const SizedBox(height: 20),
-
             Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>?>>(
-            stream: FirebaseFirestore.instance
-                .collection("users")
-                .doc(FirebaseAuth.instance.currentUser?.uid)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return const Text("Loading");
-              }
-              var user = snapshot.data!.data();
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('Hola ${user?['name']}',
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                    const SizedBox(
-                      height: 20,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>?>>(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(FirebaseAuth.instance.currentUser?.uid)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Text("Loading");
+                  }
+                  var user = snapshot.data!.data();
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Hola ${user?['name']}',
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 20),
+                        Text('Correo electrónico: ${user?['email']}',
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 20),
+                        Text('Fecha de Nacimiento: ${user?['date']}',
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style:
+                                const TextStyle(fontWeight: FontWeight.bold)),
+                      ],
                     ),
-                    Text('Correo eléctronico: ${user?['email']}',
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text('Fecha de Nacimiento: ${user?['date']}',
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),
-                  ],
-                ),
-              );
-            },
-            ),
+                  );
+                },
+              ),
             ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed:_onCerrarButtonClicked,
+                  onPressed: _onCerrarButtonClicked,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE91E63),
                   ),
-                  child:  const SizedBox(
-                    width: 120, // Establece un ancho específico para el botón
+                  child: const SizedBox(
+                    width: 120,
                     child: Text(
                       "Cerrar Sesión",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
+                          fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
                 ),
                 ElevatedButton(
-                  onPressed:_onCerrarButtonClicked,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => InfoPage()),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE91E63),
                   ),
-                  child:  const SizedBox(
-                    width: 120, // Establece un ancho específico para el botón
+                  child: const SizedBox(
+                    width: 120,
                     child: Text(
                       "Contacto",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black
-                      ),
+                          fontWeight: FontWeight.bold, color: Colors.black),
                     ),
                   ),
                 ),
@@ -202,7 +192,6 @@ class _ProfilePageState extends State<ProfilePage> {
       title: const Text("Advertencia"),
       content: const Text("¿Está seguro que desea cerrar sesión?"),
       actions: <Widget>[
-
         TextButton(
             onPressed: () => Navigator.pop(context, 'Cancel'),
             child: const Text('Cancelar')),
@@ -222,5 +211,4 @@ class _ProfilePageState extends State<ProfilePage> {
           return alert;
         });
   }
-
 }
